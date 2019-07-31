@@ -1,5 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="APPROVALS")
 @NamedQuery(name="Approval.findAll", query="SELECT c FROM Approval c")
+@Data
 public class Approval {
 
 	@Id
@@ -30,27 +33,4 @@ public class Approval {
 	@OneToOne(fetch=FetchType.LAZY)
 	private Status status;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Change getChange() {
-		return change;
-	}
-
-	public void setChange(Change change) {
-		this.change = change;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 }

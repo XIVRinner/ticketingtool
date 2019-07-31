@@ -6,28 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.json.JSONObject;
 
 @Entity
 @Table(name="SEVERITY")
 @NamedQuery(name="Severity.findAll", query="SELECT c FROM Severity c")
+@Data
 public class Severity {
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public static final int CRITICAL = 1;
 	public static final int HIGH_RISK = 2;

@@ -1,5 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="AFFECTED")
 @NamedQuery(name="Affected.findAll", query="SELECT c FROM Affected c")
+@Data
 public class Affected {
 	
 	@Id
@@ -28,28 +31,5 @@ public class Affected {
 	@JoinColumn(name="CHANGE_ID")
 	private Change change;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getObjectName() {
-		return objectName;
-	}
-
-	public void setObjectName(String objectName) {
-		this.objectName = objectName;
-	}
-
-	public Change getChange() {
-		return change;
-	}
-
-	public void setChange(Change change) {
-		this.change = change;
-	}
 
 }

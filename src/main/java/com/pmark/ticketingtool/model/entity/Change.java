@@ -1,5 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
+import lombok.Data;
+
 import java.security.Timestamp;
 
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="CHANGES")
 @NamedQuery(name="Change.findAll", query="SELECT c FROM Change c")
+@Data
 public class Change {
 	
 	@Id
@@ -44,86 +47,6 @@ public class Change {
 	@JoinColumn(name="SEV")
 	@OneToOne(fetch=FetchType.LAZY)
 	private Severity severity;	
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public User getResponsible() {
-		return responsible;
-	}
-
-	public void setResponsible(User responsible) {
-		this.responsible = responsible;
-	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
-
-	public String getLongDescription() {
-		return longDescription;
-	}
-
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public Severity getSeverity() {
-		return severity;
-	}
-
-	public void setSeverity(Severity severity) {
-		this.severity = severity;
-	}
-
-	public String getResolution() {
-		return resolution;
-	}
-
-	public void setResolution(String resolution) {
-		this.resolution = resolution;
-	}
-
-	public Timestamp getCreated() {
-		return created;
-	}
-
-	public void setCreated(Timestamp created) {
-		this.created = created;
-	}
-
-	public Timestamp getDeadline() {
-		return deadline;
-	}
-
-	public void setDeadline(Timestamp deadline) {
-		this.deadline = deadline;
-	}
 
 	@Column(name="RESOLUTION")
 	private String resolution;

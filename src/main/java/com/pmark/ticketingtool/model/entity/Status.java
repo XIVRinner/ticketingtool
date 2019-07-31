@@ -6,11 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.json.JSONObject;
 
 @Entity
 @Table(name="STATUS")
 @NamedQuery(name="Status.findAll", query="SELECT c FROM Status c")
+@Data
 public class Status {
 	
 	
@@ -25,25 +27,6 @@ public class Status {
 	public static final int APPROVED_CHANGE = 12;
 	public static final int DECLINED = 13;
 	public static final int ON_REVISION = 14;
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public int getId() {
-		return id;
-	}
 
 
 	@Id
