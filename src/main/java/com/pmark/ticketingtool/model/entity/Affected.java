@@ -1,6 +1,8 @@
 package com.pmark.ticketingtool.model.entity;
 
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
+import org.json.JSONObject;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name="AFFECTED")
 @NamedQuery(name="Affected.findAll", query="SELECT c FROM Affected c")
 @Data
-public class Affected {
+public class Affected extends JSONBuilder {
 	
 	@Id
 	@Column(name="ID")
@@ -30,6 +32,5 @@ public class Affected {
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CHANGE_ID")
 	private Change change;
-
 
 }

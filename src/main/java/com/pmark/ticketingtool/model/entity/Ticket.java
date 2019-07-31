@@ -47,14 +47,6 @@ public class Ticket {
 	@JoinColumn(name="SEV")
 	@OneToOne(fetch=FetchType.LAZY)
 	private Severity severity;	
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@Column(name="RESOLUTION")
 	private String resolution;

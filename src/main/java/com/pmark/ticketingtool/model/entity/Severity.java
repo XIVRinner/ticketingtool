@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 import org.json.JSONObject;
 
@@ -13,7 +14,7 @@ import org.json.JSONObject;
 @Table(name="SEVERITY")
 @NamedQuery(name="Severity.findAll", query="SELECT c FROM Severity c")
 @Data
-public class Severity {
+public class Severity extends JSONBuilder {
 
 	public static final int CRITICAL = 1;
 	public static final int HIGH_RISK = 2;

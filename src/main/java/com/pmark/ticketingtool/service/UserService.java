@@ -3,6 +3,8 @@ package com.pmark.ticketingtool.service;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import com.pmark.ticketingtool.model.entity.Ticket;
+import com.pmark.ticketingtool.utility.TicketingException;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.pmark.ticketingtool.model.entity.User;
 import com.pmark.ticketingtool.model.repositories.UsersRepository;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class UserService {
@@ -30,31 +33,12 @@ public class UserService {
 		User u = uRepo.findFirstByUserAndPass(user, pass);
 		
 		if(u == null) {
-			throw new Exception("No User Found");	
+			throw new TicketingException("No User Found");
 		}
 		
 		
 		return u;
 		
-	}
-
-	@PostConstruct
-	private void init(){
-		User u = uRepo.findFirstByUser("admin");
-		if(u == null && devmode){
-			log.info("Default admin user not found...");
-			u = new User();
-			u.setUser("admin");
-			u.setPermission(1);
-			u.setPass(MD5Encoder.encode("admin".getBytes()));
-			uRepo.save(u);
-		}
-		else{
-			log.info("Default admin user found and/or development mode is on.");
-		}
-
-
-
 	}
 	
 	
@@ -62,5 +46,9 @@ public class UserService {
 	private void handleException(Exception x) {
 		log.error("Regular exception during UserSerivce: ", x);
 	}
+
+	@ResponseBody
+	@ExceptionHandler(TicketingException.class)
+	private void handleTicketingException (TicketingException x) { log.error("Ticketing exception occured : ", x);}
 
 }

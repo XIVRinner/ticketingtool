@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 import org.json.JSONObject;
 
@@ -13,7 +14,7 @@ import org.json.JSONObject;
 @Table(name="STATUS")
 @NamedQuery(name="Status.findAll", query="SELECT c FROM Status c")
 @Data
-public class Status {
+public class Status extends JSONBuilder {
 	
 	
 	public static final int OVERDUE = -2;

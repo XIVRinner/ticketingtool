@@ -1,5 +1,6 @@
 package com.pmark.ticketingtool.model.entity;
 
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQuery(name="User.findAll", query="SELECT c FROM User c")
 @Data
-public class User {
+public class User extends JSONBuilder {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

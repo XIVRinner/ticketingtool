@@ -1,5 +1,6 @@
 package com.pmark.ticketingtool.model.entity;
 
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 
 import java.security.Timestamp;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 @Table(name="CHANGES")
 @NamedQuery(name="Change.findAll", query="SELECT c FROM Change c")
 @Data
-public class Change {
+public class Change extends JSONBuilder {
 	
 	@Id
 	@Column(name="ID")

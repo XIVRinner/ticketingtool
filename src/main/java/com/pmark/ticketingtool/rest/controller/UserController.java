@@ -34,4 +34,13 @@ public class UserController {
 		return JsonFactory.ok();
 	}
 
+	@GetMapping("/testJSON")
+	private String testJSON() throws Exception{
+		User user = new User();
+		user.setPass("asd");
+		user.setUser("admin");
+		return 	user.toJson().toString();
+
+	}
+
 }
