@@ -3,6 +3,7 @@ package com.pmark.ticketingtool.rest.controller;
 import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,8 @@ import com.pmark.ticketingtool.model.repositories.ChangeRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
 
 @RestController
+@RequestMapping("/private")
+
 public class AffectedController {
 	
 	@Inject AffectedRepository aRepo;

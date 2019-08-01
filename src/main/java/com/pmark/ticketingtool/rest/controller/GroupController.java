@@ -4,10 +4,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pmark.ticketingtool.model.entity.Customer;
 import com.pmark.ticketingtool.model.entity.Group;
@@ -19,6 +16,8 @@ import com.pmark.ticketingtool.utility.JsonFactory;
 import com.pmark.ticketingtool.utility.TicketingException;
 
 @RestController
+@RequestMapping("/private")
+
 public class GroupController {
 	
 	

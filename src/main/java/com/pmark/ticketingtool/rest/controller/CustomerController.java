@@ -1,5 +1,6 @@
 package com.pmark.ticketingtool.rest.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmark.ticketingtool.model.entity.Customer;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
+@RequestMapping("/private")
+
 public class CustomerController {
 	
 	@Inject CustomerRepository cRepo;

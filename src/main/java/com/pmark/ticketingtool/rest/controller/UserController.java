@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,7 @@ import com.pmark.ticketingtool.utility.JsonFactory;
 import sun.security.provider.MD5;
 
 @RestController
+@RequestMapping("/private")
 public class UserController {
 	
     @Inject private UsersRepository uRepo;
@@ -34,13 +36,5 @@ public class UserController {
 		return JsonFactory.ok();
 	}
 
-	@GetMapping("/testJSON")
-	private String testJSON() throws Exception{
-		User user = new User();
-		user.setPass("asd");
-		user.setUser("admin");
-		return 	user.toJson().toString();
-
-	}
 
 }
