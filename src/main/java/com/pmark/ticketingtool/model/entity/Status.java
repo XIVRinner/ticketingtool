@@ -38,15 +38,11 @@ public class Status extends JSONBuilder {
 	@Column(name="NAME")
 	private String name;
 	
-	
-	public JSONObject toJson() {
-		JSONObject jo = new JSONObject();
-		jo.put("id", this.id);
-		jo.put("name", this.name);
-		
-		return jo;	
-		
+
+	public boolean isChange(){
+		return  id >= 11 && id <= 20 ? true : false;
 	}
-	
+
+	public boolean isTicket() { return id <= 10 && id >= 0 ? true : false; }
 
 }

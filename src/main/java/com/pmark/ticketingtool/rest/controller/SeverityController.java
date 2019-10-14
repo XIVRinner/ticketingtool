@@ -29,7 +29,7 @@ public class SeverityController {
 	
 	
 	@GetMapping(value = "/getSeverities")
-	public String getMethodName() {
+	public String getMethodName() throws Exception {
 		
 		List<Severity> sevs = (List<Severity>) sRepo.findAll();
 		

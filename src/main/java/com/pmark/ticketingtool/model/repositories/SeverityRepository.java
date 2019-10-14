@@ -6,4 +6,6 @@ import com.pmark.ticketingtool.model.entity.Severity;
 
 public interface SeverityRepository extends CrudRepository<Severity, Integer> {
 
+    Severity findById(int id);
+
 }

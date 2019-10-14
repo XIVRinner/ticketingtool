@@ -34,4 +34,33 @@ public class Approval extends JSONBuilder {
 	@OneToOne(fetch=FetchType.LAZY)
 	private Status status;
 
+	private Approval(Builder builder) {
+		setChange(builder.change);
+		setStatus(builder.status);
+	}
+
+	public Approval() {
+	}
+
+	public static final class Builder {
+		private Change change;
+		private Status status;
+
+		public Builder() {
+		}
+
+		public Builder withChange(Change val) {
+			change = val;
+			return this;
+		}
+
+		public Builder withStatus(Status val) {
+			status = val;
+			return this;
+		}
+
+		public Approval build() {
+			return new Approval(this);
+		}
+	}
 }

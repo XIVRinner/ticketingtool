@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmark.ticketingtool.model.entity.Status;
-import com.pmark.ticketingtool.model.repositories.StatusReposiotry;
+import com.pmark.ticketingtool.model.repositories.StatusRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
 
 import java.util.List;
@@ -26,11 +26,12 @@ public class StatusController {
 	private static final Logger log = LoggerFactory.getLogger(StatusController.class);
 
 	
-	@Inject StatusReposiotry sRepo;
+	@Inject
+    StatusRepository sRepo;
 	
 	
 	@GetMapping(value = "/getStatuses")
-	public String getMethodName() {
+	public String getMethodName() throws Exception {
 		
 		
 		List<Status> statuses = (List<Status>) sRepo.findAll();

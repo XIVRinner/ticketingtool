@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableAutoConfiguration
-@ComponentScan("com.pmark.ticketingtool")
+@ComponentScan("com.pmark.ticketingtool.*")
 public class TicketingTool {
 	
 	

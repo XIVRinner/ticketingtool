@@ -4,6 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.pmark.ticketingtool.model.entity.Status;
 
-public interface StatusReposiotry extends CrudRepository<Status, Integer> {
+public interface StatusRepository extends CrudRepository<Status, Integer> {
+
+
+    Status findById(int id);
 
 }

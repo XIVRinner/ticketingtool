@@ -6,4 +6,6 @@ import com.pmark.ticketingtool.model.entity.Group;
 
 public interface GroupRepository extends CrudRepository<Group, Integer> {
 
+    Group findById(int id);
+
 }

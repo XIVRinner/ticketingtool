@@ -30,6 +30,35 @@ public class Customer extends JSONBuilder {
 	private String org;
 
 
-	
 
+
+	public Customer() {
+	}
+
+	private Customer(Builder builder) {
+		setName(builder.name);
+		setOrg(builder.org);
+	}
+
+	public static final class Builder {
+		private String name;
+		private String org;
+
+		public Builder() {
+		}
+
+		public Builder withName(String val) {
+			name = val;
+			return this;
+		}
+
+		public Builder withOrg(String val) {
+			org = val;
+			return this;
+		}
+
+		public Customer build() {
+			return new Customer(this);
+		}
+	}
 }

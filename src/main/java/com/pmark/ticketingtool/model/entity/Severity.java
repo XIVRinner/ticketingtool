@@ -28,13 +28,10 @@ public class Severity extends JSONBuilder {
 	
 	@Column(name="name")
 	private String name;
-	
-	public JSONObject toJson() {
-		JSONObject jo = new JSONObject();
-		jo.put("code", this.id);
-		jo.put("name", this.name);
-		
-		return jo;
+
+	public Severity() {
 	}
+
+
 
 }
