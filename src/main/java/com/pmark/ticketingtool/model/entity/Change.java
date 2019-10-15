@@ -41,7 +41,7 @@ public class Change extends JSONBuilder {
 	@OneToOne(fetch=FetchType.EAGER)
 	private Status status;
 	
-	@JoinColumn(name="GROUP")
+	@JoinColumn(name="GROUP_ID")
 	@OneToOne(fetch=FetchType.EAGER)
 	private Group group;
 	
