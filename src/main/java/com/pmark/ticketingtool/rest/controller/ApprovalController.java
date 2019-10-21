@@ -7,21 +7,19 @@ import com.pmark.ticketingtool.model.repositories.ApprovalRepository;
 import com.pmark.ticketingtool.model.repositories.ChangeRepository;
 import com.pmark.ticketingtool.model.repositories.StatusRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import static java.util.Objects.requireNonNull;
 
 import javax.inject.Inject;
 
 import static com.pmark.ticketingtool.utility.JsonFactory.ok;
+import static java.util.Objects.requireNonNull;
 
 @RestController
 @RequestMapping("/private")
+@Slf4j
 public class ApprovalController {
 
-    private static final Logger log = LoggerFactory.getLogger(ApprovalController.class);
 
     @Inject
     private ApprovalRepository approvalRepository;

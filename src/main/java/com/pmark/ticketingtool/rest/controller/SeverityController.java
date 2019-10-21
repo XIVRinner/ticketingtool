@@ -1,31 +1,24 @@
 package com.pmark.ticketingtool.rest.controller;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.pmark.ticketingtool.model.entity.Severity;
+import com.pmark.ticketingtool.model.repositories.SeverityRepository;
+import com.pmark.ticketingtool.utility.JsonFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pmark.ticketingtool.model.entity.Severity;
-import com.pmark.ticketingtool.model.repositories.SeverityRepository;
-import com.pmark.ticketingtool.utility.JsonFactory;
+import javax.inject.Inject;
+import java.util.List;
 
 @RestController
 @RequestMapping("/private")
-
+@Slf4j
 public class SeverityController {
 	
 	@Inject SeverityRepository sRepo;
-	
-	
-	private static final Logger log = LoggerFactory.getLogger(SeverityController.class);
-
 	
 	
 	@GetMapping(value = "/getSeverities")

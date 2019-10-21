@@ -1,28 +1,27 @@
 package com.pmark.ticketingtool.rest.controller;
 
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.web.bind.annotation.*;
-
 import com.pmark.ticketingtool.model.entity.Affected;
 import com.pmark.ticketingtool.model.entity.Change;
 import com.pmark.ticketingtool.model.repositories.AffectedRepository;
 import com.pmark.ticketingtool.model.repositories.ChangeRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.web.bind.annotation.*;
 
-import static java.util.Objects.*;
+import javax.inject.Inject;
+import java.util.List;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
 
 
 @RestController
 @RequestMapping("/private")
-
+@Slf4j
 public class AffectedController {
 
-	private static final Logger log = LoggerFactory.getLogger(AffectedController.class);
-	
+
 	@Inject AffectedRepository aRepo;
 	@Inject ChangeRepository cRepo;
 	
@@ -56,6 +55,26 @@ public class AffectedController {
 		aRepo.save(a);
 		
 		return JsonFactory.ok();
+	}
+	@GetMapping
+	private String getAffectedById(@RequestParam(name="id") int id) throws Exception {
+		Affected a = aRepo.findById(id);
+		if(a == null)
+			return JsonFactory.error("Affected object is not found with id:" + id);
+
+		return JsonFactory.result(a.toJson());
+	}
+
+	@GetMapping
+	private String getAffectedByChangeId(@RequestParam(name = "change_id") int change_id) throws Exception {
+		List<Affected> affectedList = aRepo.findAllByChangeId(change_id);
+
+		requireNonNull(affectedList);
+		if(affectedList.size() == 0)
+			return JsonFactory.error("There are no affected objects by change: " + change_id);
+
+		return JsonFactory.result(JsonFactory.toJArray(affectedList));
+
 	}
 
 	@ResponseBody

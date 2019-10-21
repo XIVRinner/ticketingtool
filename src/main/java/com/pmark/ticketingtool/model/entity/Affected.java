@@ -4,7 +4,6 @@ import com.pmark.ticketingtool.model.abstractmodel.AffectedType;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
 import lombok.Data;
-import org.json.JSONObject;
 
 import javax.persistence.*;
 

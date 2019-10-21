@@ -13,7 +13,7 @@ public abstract class JSONBuilder {
 
 
     public JSONObject toJson() throws Exception {
-        List<Field> fields = Arrays.asList(FieldUtils.getAllFields(this.getClass()));
+        Field[] fields = FieldUtils.getAllFields(this.getClass());
 
 
         JSONObject jo = new JSONObject();

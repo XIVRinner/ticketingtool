@@ -1,25 +1,21 @@
 package com.pmark.ticketingtool.service;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import com.pmark.ticketingtool.model.entity.Ticket;
+import com.pmark.ticketingtool.model.entity.User;
+import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import com.pmark.ticketingtool.utility.TicketingException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.security.MD5Encoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.pmark.ticketingtool.model.entity.User;
-import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
+
 @Service
+@Slf4j
 public class UserService {
 	
-	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
 	
 	@Inject private UsersRepository uRepo;
@@ -29,8 +25,8 @@ public class UserService {
 	
 	
 	public User findUser(String user, String pass) throws Exception  {
-		
-		User u = uRepo.findFirstByUserAndPass(user, pass);
+		String coded = MD5Encoder.encode(pass.getBytes());
+		User u = uRepo.findFirstByUserAndPass(user, coded);
 		
 		if(u == null) {
 			throw new TicketingException("No User Found");
@@ -40,7 +36,30 @@ public class UserService {
 		return u;
 		
 	}
-	
+	public boolean createUser(String user, String pass) {
+		String coded = MD5Encoder.encode(pass.getBytes());
+
+		User u = uRepo.findFirstByUser(user);
+		if(u != null)
+			return false;
+
+		User new_user = new User.Builder().withUser(user).withPass(coded).withPermission(1).build();
+		uRepo.save(new_user);
+
+		return true;
+	}
+	public boolean createUser(String user, String pass, int perm) {
+		String coded = MD5Encoder.encode(pass.getBytes());
+
+		User u = uRepo.findFirstByUser(user);
+		if(u != null)
+			return false;
+
+		User new_user = new User.Builder().withUser(user).withPass(coded).withPermission(perm).build();
+		uRepo.save(new_user);
+
+		return true;
+	}
 	
 	@ExceptionHandler(Exception.class)
 	private void handleException(Exception x) {

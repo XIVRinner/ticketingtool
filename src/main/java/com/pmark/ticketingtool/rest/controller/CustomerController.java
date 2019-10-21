@@ -1,24 +1,21 @@
 package com.pmark.ticketingtool.rest.controller;
 
-import com.pmark.ticketingtool.utility.TicketingException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-
 import com.pmark.ticketingtool.model.entity.Customer;
 import com.pmark.ticketingtool.model.repositories.CustomerRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
+import com.pmark.ticketingtool.utility.TicketingException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 
 
 @RestController
 @RequestMapping("/private")
-
+@Slf4j
 public class CustomerController {
 	
-	private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
-	
+
 	@Inject CustomerRepository cRepo;
 	
 	

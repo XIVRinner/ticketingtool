@@ -5,26 +5,22 @@ import com.pmark.ticketingtool.model.repositories.*;
 import com.pmark.ticketingtool.utility.FrontendException;
 import com.pmark.ticketingtool.utility.JsonFactory;
 import com.pmark.ticketingtool.utility.TicketingException;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
 
 @RestController
 @RequestMapping("/private")
-
+@Slf4j
 public class ChangeController {
 
-    private static final Logger log = LoggerFactory.getLogger(ChangeController.class);
 
     @Inject
     UsersRepository usersRepository;
