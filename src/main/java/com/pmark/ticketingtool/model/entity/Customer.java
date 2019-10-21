@@ -3,13 +3,7 @@ package com.pmark.ticketingtool.model.entity;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CUSTOMERS")
@@ -30,6 +24,35 @@ public class Customer extends JSONBuilder {
 	private String org;
 
 
-	
 
+
+	public Customer() {
+	}
+
+	private Customer(Builder builder) {
+		setName(builder.name);
+		setOrg(builder.org);
+	}
+
+	public static final class Builder {
+		private String name;
+		private String org;
+
+		public Builder() {
+		}
+
+		public Builder withName(String val) {
+			name = val;
+			return this;
+		}
+
+		public Builder withOrg(String val) {
+			org = val;
+			return this;
+		}
+
+		public Customer build() {
+			return new Customer(this);
+		}
+	}
 }

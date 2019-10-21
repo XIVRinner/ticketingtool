@@ -1,14 +1,9 @@
 package com.pmark.ticketingtool.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
-import org.json.JSONObject;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="SEVERITY")
@@ -28,13 +23,10 @@ public class Severity extends JSONBuilder {
 	
 	@Column(name="name")
 	private String name;
-	
-	public JSONObject toJson() {
-		JSONObject jo = new JSONObject();
-		jo.put("code", this.id);
-		jo.put("name", this.name);
-		
-		return jo;
+
+	public Severity() {
 	}
+
+
 
 }

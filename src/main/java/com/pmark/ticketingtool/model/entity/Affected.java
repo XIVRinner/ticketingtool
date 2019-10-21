@@ -1,19 +1,11 @@
 package com.pmark.ticketingtool.model.entity;
 
+import com.pmark.ticketingtool.model.abstractmodel.AffectedType;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
 import lombok.Data;
-import org.json.JSONObject;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="AFFECTED")
@@ -33,4 +25,38 @@ public class Affected extends JSONBuilder {
 	@JoinColumn(name="CHANGE_ID")
 	private Change change;
 
+
+	@Transient
+	@JSONBuilderSkipper
+	public AffectedType affectedType;
+
+	private Affected(Builder builder) {
+		setObjectName(builder.objectName);
+		setChange(builder.change);
+	}
+
+	public Affected() {
+	}
+
+	public static final class Builder {
+		private String objectName;
+		private Change change;
+
+		public Builder() {
+		}
+
+		public Builder withObjectName(String val) {
+			objectName = val;
+			return this;
+		}
+
+		public Builder withChange(Change val) {
+			change = val;
+			return this;
+		}
+
+		public Affected build() {
+			return new Affected(this);
+		}
+	}
 }

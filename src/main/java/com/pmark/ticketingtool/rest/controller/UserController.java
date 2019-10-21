@@ -1,20 +1,20 @@
 package com.pmark.ticketingtool.rest.controller;
 
-import javax.inject.Inject;
-
+import com.pmark.ticketingtool.model.entity.User;
+import com.pmark.ticketingtool.model.repositories.UsersRepository;
+import com.pmark.ticketingtool.utility.JsonFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pmark.ticketingtool.model.entity.User;
-import com.pmark.ticketingtool.model.repositories.UsersRepository;
-import com.pmark.ticketingtool.utility.JsonFactory;
-import sun.security.provider.MD5;
+import javax.inject.Inject;
 
 @RestController
 @RequestMapping("/private")
+@Slf4j
 public class UserController {
 	
     @Inject private UsersRepository uRepo;

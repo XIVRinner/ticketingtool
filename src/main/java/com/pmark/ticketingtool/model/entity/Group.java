@@ -3,16 +3,7 @@ package com.pmark.ticketingtool.model.entity;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -41,4 +32,48 @@ public class Group extends JSONBuilder {
 	private String mail;
 
 
+	public Group() {
+	}
+
+	private Group(Builder builder) {
+		setName(builder.name);
+		setCustomer(builder.customer);
+		setManager(builder.manager);
+		setMail(builder.mail);
+	}
+
+	public static final class Builder {
+		private String name;
+		private Customer customer;
+		private User manager;
+		private String mail;
+
+		public Builder() {
+		}
+
+
+		public Builder withName(String val) {
+			name = val;
+			return this;
+		}
+
+		public Builder withCustomer(Customer val) {
+			customer = val;
+			return this;
+		}
+
+		public Builder withManager(User val) {
+			manager = val;
+			return this;
+		}
+
+		public Builder withMail(String val) {
+			mail = val;
+			return this;
+		}
+
+		public Group build() {
+			return new Group(this);
+		}
+	}
 }

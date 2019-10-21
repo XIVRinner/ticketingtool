@@ -1,11 +1,5 @@
 package com.pmark.ticketingtool.rest.controller;
 
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-
 import com.pmark.ticketingtool.model.entity.Customer;
 import com.pmark.ticketingtool.model.entity.Group;
 import com.pmark.ticketingtool.model.entity.User;
@@ -14,15 +8,17 @@ import com.pmark.ticketingtool.model.repositories.GroupRepository;
 import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
 import com.pmark.ticketingtool.utility.TicketingException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
 
 @RestController
 @RequestMapping("/private")
-
+@Slf4j
 public class GroupController {
 	
 	
-	
-	private static final Logger log = LoggerFactory.getLogger(GroupController.class);
 
 	
 	@Inject GroupRepository gRepo;
@@ -69,7 +65,7 @@ public class GroupController {
 	}
 	
 	@ExceptionHandler(Exception.class)
-	private String handleException(TicketingException tex) {
+	private String handleException(Exception tex) {
 		log.error(tex.getMessage());
 		
 		return JsonFactory.error(tex.getMessage());
