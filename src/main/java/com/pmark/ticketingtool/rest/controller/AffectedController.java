@@ -56,25 +56,37 @@ public class AffectedController {
 		
 		return JsonFactory.ok();
 	}
-	@GetMapping
+	@GetMapping("/getAffectedById")
 	private String getAffectedById(@RequestParam(name="id") int id) throws Exception {
 		Affected a = aRepo.findById(id);
-		if(a == null)
+		if(isNull(a)) {
+			log.error("Affected object is not found with id: {}", id);
 			return JsonFactory.error("Affected object is not found with id:" + id);
+		}
+		log.info("QUERY Affected By ID: {}", id);
 
 		return JsonFactory.result(a.toJson());
 	}
 
-	@GetMapping
+	@GetMapping("/getAffectedByChangeId")
 	private String getAffectedByChangeId(@RequestParam(name = "change_id") int change_id) throws Exception {
 		List<Affected> affectedList = aRepo.findAllByChangeId(change_id);
 
 		requireNonNull(affectedList);
 		if(affectedList.size() == 0)
 			return JsonFactory.error("There are no affected objects by change: " + change_id);
-
+		log.info("QUERY Affected By Change.ID: {}", change_id);
 		return JsonFactory.result(JsonFactory.toJArray(affectedList));
 
+	}
+
+	@GetMapping("/getAffectedAll")
+	private String getAffectedAll() throws Exception {
+		List<Affected> affectedList = (List<Affected>) aRepo.findAll();
+		log.info("QUERY Affected [ALL]");
+		requireNonNull(affectedList);
+
+		return JsonFactory.result(JsonFactory.toJArray(affectedList));
 	}
 
 	@ResponseBody

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static com.pmark.ticketingtool.utility.JsonFactory.ok;
 import static java.util.Objects.requireNonNull;
 
@@ -40,6 +42,12 @@ public class ApprovalController {
 
         requireNonNull(c, "Change is not found!");
         requireNonNull(s, "Status code is not found!");
+        if(!s.isChange()){
+            log.error("Status code is not represented as a change status code : {}", s.getId());
+            return  JsonFactory.error("Status code is not represented as a change status code : " + s.getId());
+        }
+
+        log.info("CREATE Approval for Change: CH{}", changeid);
 
         Approval a = new Approval.Builder()
                 .withChange(c)
@@ -50,8 +58,23 @@ public class ApprovalController {
 
 
 
-        return ok();
+        return JsonFactory.ok();
     }
+
+    @GetMapping("/getApprovalByChange")
+    private String getApprovalByChange(@RequestParam(name = "change_id") int change_id) throws Exception {
+
+        List<Approval> approvalList = approvalRepository.findAllByChangeId(change_id);
+
+        requireNonNull(approvalList);
+
+        log.info("QUERY Approval by Change.Id: {}", change_id);
+
+
+        return JsonFactory.result(JsonFactory.toJArray(approvalList));
+    }
+
+
 
 
     @ResponseBody
