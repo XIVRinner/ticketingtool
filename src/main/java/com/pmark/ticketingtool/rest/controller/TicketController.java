@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,7 +41,7 @@ public class TicketController {
     @PostMapping("/createTicket")
     private String createTicket(
             @RequestBody String body
-    ) throws FrontendException, TicketingException {
+    ) throws Exception {
 
         JSONObject jo = new JSONObject(body);
         if(jo.has("ERROR"))
@@ -59,12 +60,9 @@ public class TicketController {
         requireNonNull(st);
 
         if(!st.isTicket())
-            throw new TicketingException(String.format("Status given to this change is not appropriate for changes"));
+            throw new TicketingException(String.format("Status given to this ticket is not appropriate for tickets!"));
 
         Timestamp created = new Timestamp(System.currentTimeMillis());
-        Calendar c = Calendar.getInstance();
-        c.setTime(created);
-        c.add(Calendar.DAY_OF_MONTH, 14);
 
         Ticket ch = new Ticket.Builder()
                 .withCreated(created)
@@ -74,11 +72,36 @@ public class TicketController {
                 .withResponsible(u)
                 .withSeverity(s)
                 .withStatus(st)
+                .withResolution(plain.getString("resolution"))
+                .withDeadline(new Timestamp(plain.getLong("deadline")))
                 .build();
 
         ticketRepository.save(ch);
 
+
         return JsonFactory.ok();
+    }
+
+    @GetMapping("/getAllTicketsByGroup")
+    private String getAllTicketsByGroup(@RequestParam(name = "group") int id) throws Exception {
+        Group g = groupRepository.findById(id);
+
+        List<Ticket> tickets = ticketRepository.findAllByGroup(g);
+
+        log.info("QUERY for ALL Tickets for GroupID: {}", id);
+
+        return JsonFactory.toJArray(tickets).toString();
+    }
+
+    @GetMapping("/getAllTicketsByGroupSeverity")
+    private String getAllTicketsByGroupSeverity(@RequestParam(name = "group") int id, @RequestParam(name = "severity") int sev) throws Exception {
+        Group g = groupRepository.findById(id);
+        Severity s = severityRepository.findById(sev);
+        List<Ticket> tickets = ticketRepository.findAllByGroupAndSeverity(g, s);
+
+        log.info("QUERY for ALL Tickets for GroupID: {} and Severity: {}", id, s);
+
+        return JsonFactory.toJArray(tickets).toString();
     }
 
 

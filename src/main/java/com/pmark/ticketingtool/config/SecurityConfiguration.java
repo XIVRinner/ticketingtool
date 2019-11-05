@@ -2,6 +2,7 @@ package com.pmark.ticketingtool.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Value("${ticketingtool.frontend:http://localhost:8080")
 	private String url;
 
-	@Inject
+	@Autowired
 	HashPasswordAuthenticationProvider hashProvider;
 
 
@@ -44,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
-				.authorizeRequests().antMatchers(SecurityConst.AUTH_URL).fullyAuthenticated()
+				.authorizeRequests().antMatchers("/authorize").permitAll()
 				.and()
 				.authorizeRequests().antMatchers("/private").authenticated()
 				.and()
@@ -65,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Collections.singletonList(url));
+		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080/"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		source.registerCorsConfiguration("/**", config);

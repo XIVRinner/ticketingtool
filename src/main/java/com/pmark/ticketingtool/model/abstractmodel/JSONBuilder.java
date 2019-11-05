@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
-
 public abstract class JSONBuilder {
 
 
@@ -21,7 +20,9 @@ public abstract class JSONBuilder {
             i.setAccessible(true);
             List<Annotation> annotation = Arrays.asList(i.getDeclaredAnnotations());
             int skipper = annotation.indexOf(JSONBuilderSkipper.class);
+            int renamer = annotation.indexOf(JSONBuilderRenamer.class);
             boolean hasSkipper = false;
+
             if(skipper >= 0){
                 Annotation an = annotation.get(skipper);
                 boolean include = (boolean) an.getClass().getDeclaredMethod("include").invoke(an);
@@ -29,14 +30,20 @@ public abstract class JSONBuilder {
             }
 
             if(!hasSkipper) {
-                jo.put(i.getName(), FieldUtils.readField(i, this));
-
+                if(renamer >= 0){
+                    Annotation an = annotation.get(skipper);
+                    String s = (String) an.getClass().getDeclaredMethod("key").invoke(an);
+                    jo.put(s, FieldUtils.readField(i, this));
+                }
+                else{
+                    jo.put(i.getName(), FieldUtils.readField(i, this));
+                }
             }
             i.setAccessible(false);
         }
         return jo;
-
     }
+
 
 
 }

@@ -41,6 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         user.setUser(request.getParameter("username"));
         user.setPass(request.getParameter("password"));
 
+
         return authenticationManager.
                 authenticate(new UsernamePasswordAuthenticationToken(user.getUser(), user.getPass()));
 
