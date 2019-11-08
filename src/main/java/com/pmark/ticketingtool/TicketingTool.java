@@ -22,11 +22,10 @@ public class TicketingTool {
 
 
 	@Bean
-	public WebMvcConfigurer corsConfigurer(){
+	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				log.info("add cors mapping");
 				registry.addMapping("/**").allowedOrigins("*");
 				registry.addMapping("/**").allowCredentials(true);
 			}

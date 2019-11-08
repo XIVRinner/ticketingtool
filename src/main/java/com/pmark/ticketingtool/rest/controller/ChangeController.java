@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -91,6 +92,38 @@ public class ChangeController {
 
         return JsonFactory.ok();
     }
+
+    @GetMapping("/getChangeByGroup")
+    private String getChangeByGroup(@RequestParam(name = "id") int id) throws Exception {
+        Group g = groupRepository.findById(id);
+
+        requireNonNull(g, "This group does not exists");
+
+
+        List<Change> changeList = changeRepository.findAllByGroup(g);
+
+        log.info("QUERY for Change(s) with group ID: {}", id);
+
+        return JsonFactory.toJArray(changeList).toString();
+    }
+
+    @GetMapping("/getChangeByGroupAndSeverity")
+    private String getChangeByGroupAndSeverity(@RequestParam(name = "id") int id, @RequestParam(name = "sevid") int sev) throws Exception {
+        Group g = groupRepository.findById(id);
+        Severity s = severityRepository.findById(sev);
+
+        requireNonNull(s, "This severity doesn't exists");
+        requireNonNull(g, "This group does not exists");
+
+
+
+        List<Change> changeList = changeRepository.findAllByGroupAndSeverity(g, s);
+
+        log.info("QUERY for Change(s) with Severity ({}) and group ID: {}", s.getName(),id);
+
+        return JsonFactory.toJArray(changeList).toString();
+    }
+
 
     @ResponseBody
     @ExceptionHandler(FrontendException.class)

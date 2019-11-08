@@ -32,7 +32,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         UsernamePasswordAuthenticationToken user = getAuthentication(request);
 
         if (user == null) {
-            response.sendError(401, "This user is not authorized!");
+            return;
         }
         else{
             SecurityContextHolder.getContext().setAuthentication(user);

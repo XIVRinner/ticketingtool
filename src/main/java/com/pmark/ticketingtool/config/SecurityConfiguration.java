@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
+		/*http.cors().and().csrf().disable()
 				.authorizeRequests().antMatchers("/authorize").permitAll()
 				.and()
 				.authorizeRequests().antMatchers("/private").authenticated()
@@ -53,10 +53,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.sessionManagement().sessionCreationPolicy(STATELESS);
+				.sessionManagement().sessionCreationPolicy(STATELESS);*/
 		//http.httpBasic().and().authorizeRequests().anyRequest().permitAll().and().csrf().disable();
 
-
+				http.cors().and().csrf().disable()
+				.authorizeRequests().antMatchers("/authorize").permitAll()
+				.and()
+				.authorizeRequests().antMatchers("/private")
+				.authenticated().and()
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.sessionManagement().sessionCreationPolicy(STATELESS);
 
 	}
 
@@ -66,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080/"));
+		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		source.registerCorsConfiguration("/**", config);
@@ -74,5 +81,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
 	}
-
 }
