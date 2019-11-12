@@ -4,6 +4,8 @@ package com.pmark.ticketingtool.config;
 import com.pmark.ticketingtool.model.entity.User;
 import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
+import com.pmark.ticketingtool.utility.Tools;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,8 +13,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.rsa.crypto.RsaRawEncryptor;
+import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import sun.security.provider.MD5;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ public class HashPasswordAuthenticationProvider implements AuthenticationProvide
 	@Inject
 	private UsersRepository usersRepository;
 
+
 	private final static Logger log = LoggerFactory.getLogger(HashPasswordAuthenticationProvider.class);
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -36,7 +43,8 @@ public class HashPasswordAuthenticationProvider implements AuthenticationProvide
 		String password = null;
 		try{
 		 username = authentication.getName();
-         password = authentication.getCredentials().toString();
+         password = Tools.generateHash(authentication.getCredentials().toString(), 0);
+
 		}
 		catch (Exception ex) {
 			log.error("Error during auth: " ,ex);

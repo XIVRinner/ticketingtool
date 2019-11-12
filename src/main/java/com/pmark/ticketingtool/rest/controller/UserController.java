@@ -5,6 +5,8 @@ import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.security.MD5Encoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,13 @@ public class UserController {
 		
 		
 		return JsonFactory.ok();
+	}
+
+	@GetMapping("/getCurrentUser")
+	private String getCurrentUser(){
+		Authentication a = SecurityContextHolder.getContext().getAuthentication();
+
+		return a.getName() ;
 	}
 
 

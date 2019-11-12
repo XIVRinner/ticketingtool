@@ -10,6 +10,9 @@ import javax.persistence.*;
 @NamedQuery(name="Approval.findAll", query="SELECT c FROM Approval c")
 @Data
 public class Approval extends JSONBuilder {
+	/**
+	 * smth
+	 */
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

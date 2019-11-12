@@ -3,7 +3,12 @@ export default {
         "AUTH_ERR" : "Outsiders are not allowed in the Cult!",
         "SERV_UNREACHABLE" : "The Cult's power is unreachable. Contact your Arch Ritualist.",
         "MEM_LOGIN" : "Worshipper's Entry Gate",
-        "LOGIN" : "Cast 'Entry' Spell"
+        "LOGIN" : "Cast 'Entry' Spell",
+
+        "CHANGES" : "Rituals",
+        "CHANGE" : "Ritual",
+        "TICKETS" : "Spells",
+        "TICKET" : "Spell"
     },
 
     engDict : {
@@ -11,6 +16,12 @@ export default {
         "AUTH_ERR" : "Could not authenticate user!",
         "SERV_UNREACHABLE" : "Server unreachable! Perhaps it's offline?",
         "MEM_LOGIN" : "Member Login",
-        "LOGIN" : "Login"
+        "LOGIN" : "Login",
+
+        
+        "CHANGES" : "Changes",
+        "CHANGE" : "Change",
+        "TICKETS" : "Tickets",
+        "TICKET" : "Ticket"
     }
 }

@@ -10,7 +10,7 @@
           <span class="login100-form-title">{{textMemberLog}}</span>
 
           <div class="wrap-input100 validate-input">
-            <input class="input100" type="text" placeholder="Username" v-model="user"/>
+            <input class="input100" type="text" placeholder="Username" v-model="user" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -18,12 +18,7 @@
           </div>
 
           <div class="wrap-input100 validate-input">
-            <input
-              class="input100"
-              type="password"
-              placeholder="Password"
-              v-model="pass"
-            />
+            <input class="input100" type="password" placeholder="Password" v-model="pass" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-lock" aria-hidden="true"></i>
@@ -44,42 +39,47 @@
 </template>
 
 <script>
-import http from '../http-common'
-import cultcontrol from '../thecult/cultcontrol'
+import http from "../http-common";
+import cultcontrol from "../thecult/cultcontrol";
 export default {
   name: "login",
   data() {
     return {
       user: "",
       pass: "",
-      textMemberLog : "",
-      textLogin : ""
+      textMemberLog: "",
+      textLogin: ""
     };
   },
   methods: {
     login() {
-		if(this.user == "" || this.pass == "")
-			return;
-		
+      if (this.user == "" || this.pass == "") return;
 
-		http.get("http://localhost:8181/authenticate?username=" + this.user + "&password=" + this.pass, {
-	
-		}).then(resp => {
-      resp.data = 0;
-      this.$router.push("home")
-		})
-		.catch(err => {
-      let errormsg = err.toJSON();
-			if(errormsg.message.includes("401", 0)){
-        this.$toast.error(cultcontrol.getTranslationOf("AUTH_ERR"))
-      }
-      else if(errormsg.code === "ECONNABORTED"){
-        this.$toast.error(cultcontrol.getTranslationOf("SERV_UNREACHABLE"));
-      }
-		})
-	}
+      http
+        .get(
+          "http://localhost:8181/authenticate?username=" +
+            this.user +
+            "&password=" +
+            this.pass,
+          {}
+        )
+        .then(resp => {
+          this.$store.dispatch("storeToken", resp.data).then(() => {
+            this.$router.push("home");
+            this.$store.state.showMenu = true;
+          });
+        })
+        .catch(err => {
+          let errormsg = err.toJSON();
+          if (errormsg.message.includes("401", 0)) {
+            this.$toast.error(cultcontrol.getTranslationOf("AUTH_ERR"));
+          } else if (errormsg.code === "ECONNABORTED") {
+            this.$toast.error(cultcontrol.getTranslationOf("SERV_UNREACHABLE"));
+          }
+        });
+    }
   },
-  mounted (){
+  mounted() {
     this.textMemberLog = cultcontrol.getTranslationOf("MEM_LOGIN");
     this.textLogin = cultcontrol.getTranslationOf("LOGIN");
   }
