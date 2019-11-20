@@ -49,9 +49,9 @@ public class ApprovalController {
 
         log.info("CREATE Approval for Change: CH{}", changeid);
 
-        Approval a = new Approval.Builder()
-                .withChange(c)
-                .withStatus(s)
+        Approval a = Approval.builder()
+                .change(c)
+                .status(s)
                 .build();
 
         approvalRepository.save(a);

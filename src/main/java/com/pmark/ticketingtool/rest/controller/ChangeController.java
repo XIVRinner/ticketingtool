@@ -77,16 +77,17 @@ public class ChangeController {
 
         Timestamp deadline = new Timestamp(c.getTimeInMillis());
 
-        Change ch = new Change.Builder()
-                .withCreated(created)
-                .withGroup(g)
-                .withLongDescription(plain.getString("longDescription"))
-                .withShortDescription(plain.getString("shortDescription"))
-                .withResponsible(u)
-                .withSeverity(s)
-                .withStatus(st)
-                .withDeadline(plain.has("deadline") ? new Timestamp(plain.getLong("deadline")) : deadline)
+        Change ch = Change.builder()
+                .created(created)
+                .group(g)
+                .longDescription(plain.getString("longDescription"))
+                .shortDescription(plain.getString("shortDescription"))
+                .responsible(u)
+                .severity(s)
+                .status(st)
+                .deadline((plain.has("deadline") ? new Timestamp(plain.getLong("deadline")) : deadline))
                 .build();
+
 
         changeRepository.save(ch);
 

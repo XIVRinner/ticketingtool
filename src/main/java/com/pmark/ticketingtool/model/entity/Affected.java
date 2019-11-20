@@ -3,7 +3,10 @@ package com.pmark.ticketingtool.model.entity;
 import com.pmark.ticketingtool.model.abstractmodel.AffectedType;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,6 +14,8 @@ import javax.persistence.*;
 @Table(name="AFFECTED")
 @NamedQuery(name="Affected.findAll", query="SELECT c FROM Affected c")
 @Data
+@Builder(access = AccessLevel.MODULE)
+@NoArgsConstructor
 public class Affected extends JSONBuilder {
 	
 	@Id
@@ -30,33 +35,6 @@ public class Affected extends JSONBuilder {
 	@JSONBuilderSkipper
 	public AffectedType affectedType;
 
-	private Affected(Builder builder) {
-		setObjectName(builder.objectName);
-		setChange(builder.change);
-	}
 
-	public Affected() {
-	}
 
-	public static final class Builder {
-		private String objectName;
-		private Change change;
-
-		public Builder() {
-		}
-
-		public Builder withObjectName(String val) {
-			objectName = val;
-			return this;
-		}
-
-		public Builder withChange(Change val) {
-			change = val;
-			return this;
-		}
-
-		public Affected build() {
-			return new Affected(this);
-		}
-	}
 }

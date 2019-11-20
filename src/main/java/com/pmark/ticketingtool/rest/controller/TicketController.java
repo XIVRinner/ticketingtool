@@ -64,16 +64,16 @@ public class TicketController {
 
         Timestamp created = new Timestamp(System.currentTimeMillis());
 
-        Ticket ch = new Ticket.Builder()
-                .withCreated(created)
-                .withGroup(g)
-                .withLongDescription(plain.getString("longDescription"))
-                .withShortDescription(plain.getString("shortDescription"))
-                .withResponsible(u)
-                .withSeverity(s)
-                .withStatus(st)
-                .withResolution(plain.getString("resolution"))
-                .withDeadline(new Timestamp(plain.getLong("deadline")))
+        Ticket ch =
+                Ticket.builder()
+                .created(created)
+                .group(g)
+                .longDescription(plain.getString("longDescription"))
+                .shortDescription(plain.getString("shortDescription"))
+                .responsible(u)
+                .severity(s)
+                .status(st)
+                .deadline(new Timestamp(plain.getLong("deadline")))
                 .build();
 
         ticketRepository.save(ch);

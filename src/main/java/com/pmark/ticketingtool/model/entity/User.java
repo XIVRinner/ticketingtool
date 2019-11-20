@@ -2,7 +2,9 @@ package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="User.findAll", query="SELECT c FROM User c")
 @Data
+@Builder
+@NoArgsConstructor
 public class User extends JSONBuilder {
 
 	@Id
@@ -31,40 +35,4 @@ public class User extends JSONBuilder {
 	@JSONBuilderSkipper
 	private String token;
 
-	public User() {
-	}
-
-	private User(Builder builder) {
-		setUser(builder.user);
-		setPass(builder.pass);
-		setPermission(builder.permission);
-	}
-
-	public static final class Builder {
-		private String user;
-		private String pass;
-		private int permission;
-
-		public Builder() {
-		}
-
-		public Builder withUser(String val) {
-			user = val;
-			return this;
-		}
-
-		public Builder withPass(String val) {
-			pass = val;
-			return this;
-		}
-
-		public Builder withPermission(int val) {
-			permission = val;
-			return this;
-		}
-
-		public User build() {
-			return new User(this);
-		}
-	}
 }

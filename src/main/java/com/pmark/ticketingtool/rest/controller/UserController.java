@@ -3,6 +3,7 @@ package com.pmark.ticketingtool.rest.controller;
 import com.pmark.ticketingtool.model.entity.User;
 import com.pmark.ticketingtool.model.repositories.UsersRepository;
 import com.pmark.ticketingtool.utility.JsonFactory;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.security.core.Authentication;
@@ -33,7 +34,8 @@ public class UserController {
 		u.setPermission(permission);
 		
 		uRepo.save(u);
-		
+
+
 		
 		return JsonFactory.ok();
 	}
