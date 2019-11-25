@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <div id="demo" :class="[{'collapsed' : collapsed}]">
-      <router-view />
+      
       <sidebar-menu
+        v-if="$store.state.showMenu"
         :menu="menu"
         :collapsed="collapsed"
         :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick"
-        v-if="$store.state.showMenu"
+        
       />
+      <router-view />
     </div>
   </div>
 </template>
@@ -41,7 +43,7 @@ export default {
           icon: "fa fa-code"
         }
       ],
-      collapsed: false
+      collapsed: true
     };
   },
   methods: {
@@ -58,5 +60,38 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  background-color: #f2f4f7;
+  color: #262626;
+}
+#demo {
+  padding-left: 350px;
+}
+#demo.collapsed {
+  padding-left: 50px;
+}
+.demo {
+  padding: 50px;
+}
+.container {
+  max-width: 900px;
+}
+pre {
+  font-family: Consolas, monospace;
+  color: #000;
+  background: #fff;
+  border-radius: 2px;
+  padding: 15px;
+  line-height: 1.5;
+  overflow: auto;
+}
 </style>

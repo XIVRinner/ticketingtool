@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Welcome to the Cult</h2>
+      <center><h2>Welcome to the Cult</h2></center>
       
   </div>
 </template>

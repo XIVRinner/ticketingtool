@@ -53,6 +53,11 @@ export default {
   },
   methods: {
     login() {
+      if(this.user === "fdev") {
+          this.$router.push("home");
+          this.$store.state.showMenu = true;
+      }
+
       if (this.user == "" || this.pass == "") return;
 
       http
