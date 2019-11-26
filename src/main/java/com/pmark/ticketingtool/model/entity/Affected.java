@@ -3,10 +3,7 @@ package com.pmark.ticketingtool.model.entity;
 import com.pmark.ticketingtool.model.abstractmodel.AffectedType;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,8 +11,9 @@ import javax.persistence.*;
 @Table(name="AFFECTED")
 @NamedQuery(name="Affected.findAll", query="SELECT c FROM Affected c")
 @Data
-@Builder(access = AccessLevel.MODULE)
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Affected extends JSONBuilder {
 	
 	@Id

@@ -44,9 +44,9 @@ public class AffectedController {
             return JsonFactory.error(String.format("Change with CH%d number was not found!", change_id));
         }
 
-		Affected a = new Affected.Builder().
-				withChange(c).
-				withObjectName(object).
+		Affected a = Affected.builder().
+				change(c).
+				objectName(object).
 				build();
 
 		log.info("Affected object created with name '{}' with change: CH{}", a.getObjectName(), a.getChange().getId());

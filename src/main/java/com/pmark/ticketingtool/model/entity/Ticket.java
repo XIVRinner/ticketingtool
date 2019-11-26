@@ -2,6 +2,7 @@ package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderRenamer;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ import java.sql.Timestamp;
 @Table(name="TICKETS")
 @NamedQuery(name="Ticket.findAll", query="SELECT c FROM Ticket c")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Ticket extends JSONBuilder {
 
@@ -52,7 +55,4 @@ public class Ticket extends JSONBuilder {
 	@Column(name="DEADLINE")
 	private Timestamp deadline;
 
-	public Ticket() {
-
-	}
 }
