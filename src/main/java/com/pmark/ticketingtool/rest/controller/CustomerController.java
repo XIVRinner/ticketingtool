@@ -33,9 +33,9 @@ public class CustomerController {
 		if(c != null)
 			throw new TicketingException("This customer already exists!") ;
 
-		c = new Customer.Builder()
-				.withName(name)
-				.withOrg(org)
+		c = Customer.builder()
+				.name(name)
+				.org(org)
 				.build();
 
 		log.info("Customer created with name {} for organisation {}", name, org);

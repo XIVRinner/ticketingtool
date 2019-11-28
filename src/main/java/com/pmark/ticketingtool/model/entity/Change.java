@@ -1,10 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,8 +11,9 @@ import java.util.List;
 @Table(name="CHANGES")
 @NamedQuery(name="Change.findAll", query="SELECT c FROM Change c")
 @Data
-@Builder(access = AccessLevel.PUBLIC)
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Change extends JSONBuilder {
 	
 	@Id

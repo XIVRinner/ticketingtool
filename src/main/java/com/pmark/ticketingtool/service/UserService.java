@@ -50,7 +50,7 @@ public class UserService {
 		if(u != null)
 			return false;
 
-		User new_user = new User.Builder().withUser(user).withPass(coded).withPermission(1).build();
+		User new_user = User.builder().user(user).pass(coded).permission(1).build();
 		uRepo.save(new_user);
 
 		return true;
@@ -62,7 +62,7 @@ public class UserService {
 		if(u != null)
 			return false;
 
-		User new_user = new User.Builder().withUser(user).withPass(coded).withPermission(perm).build();
+		User new_user = User.builder().user(user).pass(coded).permission(perm).build();
 		uRepo.save(new_user);
 
 		return true;
@@ -80,7 +80,7 @@ public class UserService {
 
 			String pass = "admin";
 
-			User defa = new User.Builder().withPass(Tools.generateHash(pass, 0)).withPermission(1).withUser("admin").build();
+			User defa = User.builder().pass(Tools.generateHash(pass, 0)).permission(1).user("admin").build();
 			uRepo.save(defa);
 
 			log.info("###############################################");

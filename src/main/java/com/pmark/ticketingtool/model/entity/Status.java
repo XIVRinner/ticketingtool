@@ -1,6 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,9 @@ import javax.persistence.*;
 @Table(name="STATUS")
 @NamedQuery(name="Status.findAll", query="SELECT c FROM Status c")
 @Data
-@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Status extends JSONBuilder {
 	
 	

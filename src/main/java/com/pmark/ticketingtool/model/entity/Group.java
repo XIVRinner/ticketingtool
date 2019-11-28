@@ -1,6 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,9 @@ import javax.persistence.*;
 @Table(name="GROUPS")
 @NamedQuery(name="Group.findAll", query="SELECT c FROM Group c")
 @Data
-@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class Group extends JSONBuilder {
 	
 	@Id
