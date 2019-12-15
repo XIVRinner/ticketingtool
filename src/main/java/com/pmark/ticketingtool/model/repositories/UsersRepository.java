@@ -11,4 +11,5 @@ public interface UsersRepository extends CrudRepository<User, Integer> {
 	User findById(int id);
 
     User findFirstByUser(String user);
+
 }

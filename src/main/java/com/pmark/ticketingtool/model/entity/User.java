@@ -19,18 +19,20 @@ import javax.persistence.*;
 public class User extends JSONBuilder {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
-	private int id;
+	public Integer id;
 	
 	@Column(name="USER")
 	private String user;
 	
 	@Column(name="PASSWORD")
+	@JSONBuilderSkipper
 	private String pass;
 	
 	
 	@Column(name="PERMISSION")
+	@JSONBuilderSkipper
 	private int permission;
 
 	@Transient

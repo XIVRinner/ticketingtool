@@ -22,17 +22,13 @@ public class SeverityController {
 	
 	
 	@GetMapping(value = "/getSeverities")
-	public String getMethodName() throws Exception {
+	public String getSeverities() throws Exception {
 		
 		List<Severity> sevs = (List<Severity>) sRepo.findAll();
-		
-		JSONArray ja = new JSONArray();
-		for (Severity item : sevs) {
-			ja.put(item.toJson());
-		}
+		log.info("QUERY for Severities");
 		
 		
-		return JsonFactory.result(ja);
+		return JsonFactory.toJArray(sevs);
 	}
 	
 	

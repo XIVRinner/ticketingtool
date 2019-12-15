@@ -38,6 +38,8 @@ public class CustomerController {
 				.org(org)
 				.build();
 
+
+
 		log.info("Customer created with name {} for organisation {}", name, org);
 
 		cRepo.save(c);

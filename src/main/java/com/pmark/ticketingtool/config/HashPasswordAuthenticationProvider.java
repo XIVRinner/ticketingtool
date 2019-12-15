@@ -13,19 +13,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.rsa.crypto.RsaRawEncryptor;
-import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import sun.security.provider.MD5;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 
 /**
- * 
- * @author Csaba Lenart<br>
+ *
  * This class is responsible for checking validity of username + password pairs as they have sent via basic authentication<br>
  * This can be done here via DB or whatever
  */
@@ -35,7 +31,17 @@ public class HashPasswordAuthenticationProvider implements AuthenticationProvide
 	@Inject
 	private UsersRepository usersRepository;
 
-
+	/*http.cors().and().csrf().disable()
+            .authorizeRequests().antMatchers("/authorize").permitAll()
+            .and()
+            .authorizeRequests().antMatchers("/private").authenticated()
+            .and()
+            .authorizeRequests().antMatchers("/public").permitAll()
+            .and()
+            .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+            .sessionManagement().sessionCreationPolicy(STATELESS);*/
+	//http.httpBasic().and().authorizeRequests().anyRequest().permitAll().and().csrf().disable();
 	private final static Logger log = LoggerFactory.getLogger(HashPasswordAuthenticationProvider.class);
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {

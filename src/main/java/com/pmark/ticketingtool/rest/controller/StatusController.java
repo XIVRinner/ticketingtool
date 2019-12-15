@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,22 +26,54 @@ public class StatusController {
 	
 	
 	@GetMapping(value = "/getStatuses")
-	public String getMethodName() throws Exception {
+	public String getStatuses() throws Exception {
 		
 		
 		List<Status> statuses = (List<Status>) sRepo.findAll();
+
+		log.info("QUERY for STATUSES");
 		
-		JSONArray ja = new JSONArray();
-		for (Status item : statuses) {
-			ja.put(item.toJson());
-		}
-		
-		
-		return JsonFactory.result(ja);
+		return JsonFactory.toJArray(statuses);
 	}
-	
-	
-	
+
+	@GetMapping(value = "/getTicketStatuses")
+	public String getTicketStatuses() throws Exception {
+
+
+		List<Status> statuses = (List<Status>) sRepo.findAll();
+
+		List<Status> ticketStats = new ArrayList<>();
+
+		log.trace("QUERY for Ticket Statuses");
+		statuses.forEach(y -> {
+			if(y.isTicket() || y.isFailed())
+				ticketStats.add(y);
+		});
+
+
+		return JsonFactory.toJArray(ticketStats);
+	}
+	@GetMapping(value = "/getChangeStatuses")
+	public String getChangeStatuses() throws Exception {
+
+
+		List<Status> statuses = (List<Status>) sRepo.findAll();
+		log.trace("QUERY for Change Statuses");
+		List<Status> changeStats = new ArrayList<>();
+
+		statuses.forEach(y -> {
+			if(y.isChange() || y.isFailed())
+				changeStats.add(y);
+		});
+
+
+		return JsonFactory.toJArray(changeStats);
+	}
+
+
+
+
+
 	@ExceptionHandler(Exception.class)
 	private String handleException(Exception ex) {
 		

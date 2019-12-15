@@ -41,10 +41,10 @@ public class Status extends JSONBuilder {
 	
 
 	public boolean isChange(){
-		return id >= 11 && id <= 20;
+		return id >= 11 && id <= 20 || id == DONE;
 	}
 
-	public boolean isTicket() { return id <= 10 && id >= 0; }
+	public boolean isTicket() { return id <= 10 && id >= 0 || id == DONE; }
 
 	public boolean isFailed() {return id < 0; }
 

@@ -10,7 +10,7 @@
           <span class="login100-form-title">{{textMemberLog}}</span>
 
           <div class="wrap-input100 validate-input">
-            <input class="input100" type="text" placeholder="Username" v-model="user" />
+            <input class="input100" type="text" :placeholder="textPlaceUser" v-model="user" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -18,7 +18,7 @@
           </div>
 
           <div class="wrap-input100 validate-input">
-            <input class="input100" type="password" placeholder="Password" v-model="pass" />
+            <input class="input100" type="password" :placeholder="textPlacePass" v-model="pass"/>
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-lock" aria-hidden="true"></i>
@@ -48,7 +48,9 @@ export default {
       user: "",
       pass: "",
       textMemberLog: "",
-      textLogin: ""
+      textLogin: "",
+      textPlaceUser : "",
+      textPlacePass : ""
     };
   },
   methods: {
@@ -69,10 +71,12 @@ export default {
           {}
         )
         .then(resp => {
-          this.$store.dispatch("storeToken", resp.data).then(() => {
+            this.$store.dispatch("storeToken", resp.data).then(() => {
             this.$router.push("home");
             this.$store.state.showMenu = true;
+            
           });
+          this.$store.dispatch("storeUser", this.user);
         })
         .catch(err => {
           let errormsg = err.toJSON();
@@ -85,8 +89,11 @@ export default {
     }
   },
   mounted() {
+    
     this.textMemberLog = cultcontrol.getTranslationOf("MEM_LOGIN");
     this.textLogin = cultcontrol.getTranslationOf("LOGIN");
+    this.textPlaceUser = cultcontrol.getTranslationOf("USERNAME");
+    this.textPlacePass = cultcontrol.getTranslationOf("PASSWORD");
   }
 };
 </script>
@@ -128,6 +135,7 @@ body,
 html {
   height: 100%;
   font-family: Poppins-Regular, sans-serif;
+
 }
 
 /*---------------------------------------------*/
@@ -294,17 +302,18 @@ iframe {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 15px;
-  background: #9053c7;
-  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  padding: 50px;
+  background-image: url("../assets/images/gate.jpg");
+  
+  z-index: 2;
+  
+
+
 }
 
 .wrap-login100 {
   width: 960px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.0);
   border-radius: 10px;
   overflow: hidden;
 
@@ -332,12 +341,13 @@ iframe {
 [  ]*/
 .login100-form {
   width: 290px;
+  opacity: 1.0;
 }
 
 .login100-form-title {
   font-family: Poppins-Bold;
   font-size: 24px;
-  color: #333333;
+  color: #0c0c0c;
   line-height: 1.2;
   text-align: center;
 

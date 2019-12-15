@@ -44,17 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		/*http.cors().and().csrf().disable()
-				.authorizeRequests().antMatchers("/authorize").permitAll()
-				.and()
-				.authorizeRequests().antMatchers("/private").authenticated()
-				.and()
-				.authorizeRequests().antMatchers("/public").permitAll()
-				.and()
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.sessionManagement().sessionCreationPolicy(STATELESS);*/
-		//http.httpBasic().and().authorizeRequests().anyRequest().permitAll().and().csrf().disable();
 
 				http.cors().and().csrf().disable()
 				.authorizeRequests().antMatchers("/authorize").permitAll()
@@ -64,7 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 				.sessionManagement().sessionCreationPolicy(STATELESS);
-
 	}
 
 	@Bean

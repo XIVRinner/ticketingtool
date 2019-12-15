@@ -9,7 +9,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface JSONBuilderRenamer {
 
-    String key();
+      String key();
+
 
 
 }
+

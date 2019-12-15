@@ -1,6 +1,7 @@
 package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +18,15 @@ import javax.persistence.*;
 @Builder
 public class Severity extends JSONBuilder {
 
+	@JSONBuilderSkipper
 	public static final int CRITICAL = 1;
+	@JSONBuilderSkipper
 	public static final int HIGH_RISK = 2;
+	@JSONBuilderSkipper
 	public static final int MEDIUM_RISK = 3;
+	@JSONBuilderSkipper
 	public static final int LOW_RISK = 4;
+	@JSONBuilderSkipper
 	public static final int NOT_MEASURED = -1;
 	
 	@Id

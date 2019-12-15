@@ -6,10 +6,7 @@ import com.pmark.ticketingtool.utility.TicketingException;
 import com.pmark.ticketingtool.utility.Tools;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.security.MD5Encoder;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

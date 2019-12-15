@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="TICKETS")
+@Table(name="INCIDENTS")
 @NamedQuery(name="Ticket.findAll", query="SELECT c FROM Ticket c")
 @Data
 @AllArgsConstructor
@@ -25,21 +25,21 @@ public class Ticket extends JSONBuilder {
 	private int id;
 	
 	@JoinColumn(name="RESPONSIBLE")
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, targetEntity = User.class)
 	private User responsible;
 	
 	@Column(name="SHORT")
 	private String shortDescription;
 	
-	@Column(name="LONG")
+	@Column(name="LONGDESC")
 	private String longDescription;
 	
 	@JoinColumn(name="STATUS_CODE")
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, targetEntity = Status.class)
 	private Status status;
 	
-	@JoinColumn(name="GROUP")
-	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="GROUP_ID")
+	@OneToOne(fetch=FetchType.EAGER, targetEntity = Group.class)
 	private Group group;
 	
 	@JoinColumn(name="SEV")

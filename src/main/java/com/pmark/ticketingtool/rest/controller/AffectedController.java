@@ -44,12 +44,9 @@ public class AffectedController {
             return JsonFactory.error(String.format("Change with CH%d number was not found!", change_id));
         }
 
-		Affected a = Affected.builder().
-				change(c).
-				objectName(object).
-				build();
+		Affected a = null;
 
-		log.info("Affected object created with name '{}' with change: CH{}", a.getObjectName(), a.getChange().getId());
+		log.info("Affected object created with name '{}' with change: CH{}", a.getObjectName(), a.getChange().get(0).getId());
 
 
 		aRepo.save(a);
@@ -76,7 +73,7 @@ public class AffectedController {
 		if(affectedList.size() == 0)
 			return JsonFactory.error("There are no affected objects by change: " + change_id);
 		log.info("QUERY Affected By Change.ID: {}", change_id);
-		return JsonFactory.result(JsonFactory.toJArray(affectedList));
+		return JsonFactory.ok();
 
 	}
 
@@ -86,7 +83,7 @@ public class AffectedController {
 		log.info("QUERY Affected [ALL]");
 		requireNonNull(affectedList);
 
-		return JsonFactory.result(JsonFactory.toJArray(affectedList));
+		return JsonFactory.ok();
 	}
 
 	@ResponseBody

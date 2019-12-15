@@ -49,11 +49,7 @@ public class ApprovalController {
 
         log.info("CREATE Approval for Change: CH{}", changeid);
 
-        Approval a = Approval.builder()
-                .change(c)
-                .status(s)
-                .build();
-
+        Approval a = null;
         approvalRepository.save(a);
 
 
@@ -71,7 +67,7 @@ public class ApprovalController {
         log.info("QUERY Approval by Change.Id: {}", change_id);
 
 
-        return JsonFactory.result(JsonFactory.toJArray(approvalList));
+        return JsonFactory.ok();
     }
 
 

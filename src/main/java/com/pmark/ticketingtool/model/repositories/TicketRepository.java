@@ -12,6 +12,10 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 
     List<Ticket> findAllByGroup(Group id);
 
+    Ticket findById(int id);
+
     List<Ticket> findAllByGroupAndSeverity(Group g, Severity s);
+
+
 
 }

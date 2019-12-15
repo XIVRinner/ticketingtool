@@ -6,6 +6,7 @@ import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderSkipper;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="AFFECTED")
@@ -24,9 +25,9 @@ public class Affected extends JSONBuilder {
 	@Column(name="OBJECT_NAME")
 	private String objectName;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="CHANGE_ID")
-	private Change change;
+	private List<Change> change;
 
 
 	@Transient

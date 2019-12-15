@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="APPROVALS")
@@ -26,8 +27,8 @@ public class Approval extends JSONBuilder {
 	private int id;
 	
 	@JoinColumn(name="CHANGE_ID")
-	@OneToOne(fetch=FetchType.LAZY)
-	private Change change;
+	@OneToMany(fetch=FetchType.LAZY)
+	private List<Change> change;
 	
 	
 	@JoinColumn(name="STATUS_CODE")

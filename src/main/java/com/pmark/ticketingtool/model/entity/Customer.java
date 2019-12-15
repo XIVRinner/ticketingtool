@@ -1,10 +1,8 @@
 package com.pmark.ticketingtool.model.entity;
 
 import com.pmark.ticketingtool.model.abstractmodel.JSONBuilder;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.pmark.ticketingtool.model.abstractmodel.JSONBuilderRenamer;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -28,6 +26,8 @@ public class Customer extends JSONBuilder {
 	
 	@Column(name="ORG")
 	private String org;
+
+
 
 
 }

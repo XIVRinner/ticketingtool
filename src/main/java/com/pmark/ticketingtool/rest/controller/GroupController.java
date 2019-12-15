@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @RestController
 @RequestMapping("/private")
@@ -27,7 +28,7 @@ public class GroupController {
 	
 	
 	@GetMapping(value = "/createGroup")
-	public String getMethodName(
+	public String createGroup(
 			@RequestParam(name="name") String name,
 			@RequestParam(name="customer") int customer,
 			@RequestParam(name="manager") int manager,
@@ -54,6 +55,13 @@ public class GroupController {
 		
 		
 		return JsonFactory.ok();
+	}
+
+	@GetMapping("/getAllGroup")
+	private String getAllGroup() throws Exception {
+		List<Group> groups = (List<Group>) gRepo.findAll();
+
+		return JsonFactory.toJArray(groups);
 	}
 
 	

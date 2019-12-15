@@ -16,6 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class Group extends JSONBuilder {
 	
 	@Id
@@ -36,5 +37,7 @@ public class Group extends JSONBuilder {
 	
 	@Column(name="MAIL")
 	private String mail;
+
+
 
 }

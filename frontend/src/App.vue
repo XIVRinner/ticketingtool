@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="demo" :class="[{'collapsed' : collapsed}]">
-      
       <sidebar-menu
         v-if="$store.state.showMenu"
         :menu="menu"
@@ -9,7 +8,6 @@
         :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick"
-        
       />
       <router-view />
     </div>
@@ -35,12 +33,24 @@ export default {
         {
           href: "/tickets",
           title: cultcontrol.getTranslationOf("TICKETS"),
-          icon: "fa fa-code"
+          icon: "fa fa-magic",
+          child: [
+            {
+              title: cultcontrol.getTranslationOf("CREATE_TI"),
+              href: "/createTicket"
+            }
+          ]
         },
         {
           href: "/changes",
           title: cultcontrol.getTranslationOf("CHANGES"),
-          icon: "fa fa-code"
+          icon: "fa fa-ankh",
+             child: [
+            {
+              title: cultcontrol.getTranslationOf("CREATE_CH"),
+              href: "/createChange"
+            }
+          ]
         }
       ],
       collapsed: true
@@ -54,21 +64,19 @@ export default {
       item.smth = null;
     }
   },
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
 
-<style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600");
 body,
 html {
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 18px;
   background-color: #f2f4f7;
   color: #262626;

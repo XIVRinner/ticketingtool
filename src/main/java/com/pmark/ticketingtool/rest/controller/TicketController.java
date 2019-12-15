@@ -6,11 +6,13 @@ import com.pmark.ticketingtool.utility.FrontendException;
 import com.pmark.ticketingtool.utility.JsonFactory;
 import com.pmark.ticketingtool.utility.TicketingException;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class TicketController {
     @Inject
     TicketRepository ticketRepository;
 
+    @Inject GroupMemberRepository groupMemberRepository;
+
 
 
     @PostMapping("/createTicket")
@@ -43,12 +47,7 @@ public class TicketController {
             @RequestBody String body
     ) throws Exception {
 
-        JSONObject jo = new JSONObject(body);
-        if(jo.has("ERROR"))
-            throw new FrontendException(jo.get("ERROR").toString());
-
-        JSONObject plain = jo.getJSONObject("REQUEST");
-
+        JSONObject plain = new JSONObject(body);
         User u =  usersRepository.findById(plain.getInt("userid"));
         Group g = groupRepository.findById(plain.getInt("groupid"));
         Severity s = severityRepository.findById(plain.getInt("severity"));
@@ -73,7 +72,6 @@ public class TicketController {
                 .responsible(u)
                 .severity(s)
                 .status(st)
-                .deadline(new Timestamp(plain.getLong("deadline")))
                 .build();
 
         ticketRepository.save(ch);
@@ -102,6 +100,50 @@ public class TicketController {
         log.info("QUERY for ALL Tickets for GroupID: {} and Severity: {}", id, s);
 
         return JsonFactory.toJArray(tickets).toString();
+    }
+
+    @GetMapping("/getTicketsByUser")
+    private String getTicketsByUser(@RequestParam(name = "user") int id) throws Exception {
+        User u = usersRepository.findById(id);
+        requireNonNull(u);
+
+        List<GroupMember> gm = groupMemberRepository.findAllByUser(u);
+        List<Ticket> tickets = new ArrayList<>();
+
+        for (GroupMember y : gm) {
+            Group g = y.getGroup();
+
+            tickets.addAll(ticketRepository.findAllByGroup(g));
+        }
+
+        JSONArray ja = new JSONArray();
+
+        for (Ticket ticket : tickets) {
+            JSONObject jo = new JSONObject();
+            jo.put("id", ticket.getId());
+            jo.put("created", ticket.getCreated());
+            jo.put("severity", ticket.getSeverity().toJson());
+            jo.put("responsilbe", ticket.getResponsible().toJson());
+            jo.put("short", ticket.getShortDescription());
+            ja.put(jo);
+        }
+
+
+
+        return JsonFactory.result(ja);
+    }
+
+    @GetMapping("/getTicketById")
+    private String getTicketById(@RequestParam(name = "id") int id) throws Exception{
+        Ticket t = ticketRepository.findById(id);
+
+        JSONObject jo = new JSONObject();
+        jo.put("group", t.getGroup().toJson());
+        jo.put("customer", t.getGroup().getCustomer().toJson());
+        jo.put("resolution", t.getResolution());
+        jo.put("long", t.getLongDescription());
+
+        return JsonFactory.result(jo);
     }
 
 
